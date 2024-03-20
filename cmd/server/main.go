@@ -11,7 +11,7 @@ func main() {
 	listener, err := net.Listen("tcp", ":8090")
 
 	if err != nil {
-		log.Fatalln("Error when init server:", err)
+		log.Fatal("Error when init server:", err)
 
 		return
 	}
