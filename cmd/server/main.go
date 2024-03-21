@@ -1,25 +1,23 @@
-package server
+package main
 
 import (
-	"github.com/ohannadeziderio/chatbot-rpc/pkg/chat"
 	"log"
 	"net"
 	"net/rpc"
+
+	"github.com/ohannadeziderio/chatbot-rpc/pkg/chat"
 )
 
 func main() {
-	listener, err := net.Listen("tcp", ":8090")
+	chatbotService := new(chat.Chatbot)
+  rpc.Register(chatbotService)
 
+	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		log.Fatal("Error when init server:", err)
-
-		return
+		log.Fatal("Error starting RPC server:", err)
 	}
+	defer listener.Close()
 
-	chatbot := chat.NewChatbot()
-	rpc.Register(chatbot)
-
-	log.Println("Server started.")
-
+	log.Println("RPC server started on port 1234")
 	rpc.Accept(listener)
 }

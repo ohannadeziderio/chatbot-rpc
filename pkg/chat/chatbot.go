@@ -8,15 +8,13 @@ import (
 	"github.com/ohannadeziderio/chatbot-rpc/pkg/references"
 )
 
-type Chatbot struct {
-	Name string
+type Chatbot struct {}
+
+type ChatbotService interface {
+  SendMessage(message string) string
 }
 
-func NewChatbot() *Chatbot {
-	return &Chatbot{Name: "bot"}
-}
-
-func (bot Chatbot) Answer(message string) string {
+func (c *Chatbot) SendMessage(message string) string {
 	message = strings.ToLower(message)
 
 	switch {
