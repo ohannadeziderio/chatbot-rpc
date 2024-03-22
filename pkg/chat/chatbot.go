@@ -8,26 +8,28 @@ import (
 	"github.com/ohannadeziderio/chatbot-rpc/pkg/references"
 )
 
-type Chatbot struct {}
-
-type ChatbotService interface {
-  SendMessage(message string) string
+type Chatbot struct {
+	Name string
 }
 
-func (c *Chatbot) SendMessage(message string) string {
+func NewChatbot() *Chatbot {
+	return &Chatbot{Name: "bot"}
+}
+
+func (c *Chatbot) SendMessage(message string) (string, error) {
 	message = strings.ToLower(message)
 
 	switch {
 	case strings.Contains(message, "movie"):
-		return ProcessMessage(message, references.GeekMovies)
+		return ProcessMessage(message, references.GeekMovies), nil
 	case strings.Contains(message, "music"):
-		return ProcessMessage(message, references.Music)
+		return ProcessMessage(message, references.Music), nil
 	case strings.Contains(message, "book"):
-		return ProcessMessage(message, references.Books)
+		return ProcessMessage(message, references.Books), nil
 	case strings.Contains(message, "meme"):
-		return RandMeme(references.Memes)
+		return RandMeme(references.Memes), nil
 	default:
-		return ProcessMessage(message, references.Greetings)
+		return ProcessMessage(message, references.Greetings), nil
 	}
 }
 

@@ -2,13 +2,14 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"net/rpc"
 	"os"
 )
 
 func main() {
-	client, err := rpc.Dial("tcp", "localhost:1234")
+	client, err := rpc.Dial("tcp", "localhost:8090")
 	if err != nil {
 		log.Fatal("Error connecting to RPC server:", err)
 	}
@@ -17,7 +18,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		log.Print("You: ")
+		fmt.Printf("You: ")
 		message, _ := reader.ReadString('\n')
 
 		var response string
@@ -26,6 +27,6 @@ func main() {
 			log.Fatal("Error calling RPC method: ", err)
 		}
 
-		log.Println("Chatbot: ", response)
+		fmt.Println("Bot:", response)
 	}
 }
